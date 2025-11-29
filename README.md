@@ -1,73 +1,65 @@
 Alocador de Memória Buddy Binário
 
-Este projeto implementa um simulador completo do algoritmo Buddy System, utilizando apenas tipos primitivos e arrays simples, conforme a restrição proposta.
+Esse projeto simula um alocador de memória Buddy Binário, um método comum usado por sistemas operacionais para alocar e gerenciar blocos de memória. O código foi implementado do zero, com a limitação de usar apenas tipos primitivos e arrays simples.
 
-Ele gerencia uma memória de 4 MB realizando alocação, divisão de blocos, fusão de buddies e geração de relatório final.
+Requisitos
 
-📌 Requisitos de Implementação
+Memória total: 4 MB (4.194.304 bytes)
 
-Memória Total: 4 MB (4.194.304 bytes)
+Tamanho mínimo de bloco: 1 KB (1024 bytes)
 
-Tamanho Mínimo do Bloco: 1 KB (1024 bytes)
+Lógica de alocação: Buddy Binário (blocos de tamanhos em potências de 2, com divisão e fusão)
 
-Lógica: Buddy Binário (blocos sempre em potência de 2, com divisão e fusão)
-
-Estratégia de Alocação: First Fit
+Estratégia de alocação: First Fit (Primeiro Encaixe)
 
 Restrições:
 
-Apenas int[], char[] e arrays simples
+Só foi permitido o uso de arrays simples e tipos primitivos (int[], char[], etc.)
 
-Sem ArrayList, HashMap, StringBuilder, ou arrays multidimensionais
+Não foi usado nenhum recurso como ArrayList, HashMap, StringBuilder ou arrays multidimensionais.
 
-Uso de try/catch permitido apenas para leitura de arquivo
+Decisões de Projeto
 
-🛠️ Decisões de Projeto
+A memória é representada por um array simples que simula uma árvore binária completa.
 
-A árvore de memória é representada como um array linear, simulando uma árvore binária completa.
+Os blocos de memória podem estar em 4 estados:
 
-Os estados possíveis de um bloco são:
+0 - Livre
 
-0 – Livre
+1 - Ocupado
 
-1 – Ocupado
+2 - Dividido
 
-2 – Dividido
+-1 - Inválido (após fusão)
 
--1 – Inválido (filhos após fusão)
+O alocador usa uma lógica First Fit, ou seja, ele tenta alocar o primeiro bloco de memória que seja grande o suficiente para o programa.
 
-Todos os cálculos de nível, tamanho de bloco e posição em memória foram implementados manualmente.
+Toda a estrutura e lógica do alocador foi implementada manualmente, incluindo os cálculos de nível, tamanho de bloco e posição na memória.
 
-O relatório final exibe:
+O programa gera um relatório detalhado com informações sobre:
 
-Programas alocados
+Programas alocados (rótulo, tamanho real, bloco alocado, posição na memória)
 
-Tamanho real vs tamanho do bloco Buddy
+Fragmentação da memória livre (blocos não alocados)
 
-Índice da árvore
+Como Compilar e Executar
+Compilação
 
-Offset dentro da memória
-
-Blocos livres (fragmentação)
-
-⚙️ Como Compilar e Executar
-📍 Compilar
-
-No terminal, dentro do diretório onde está o arquivo AlocadorBudy.java, execute:
+Primeiro, compile o arquivo AlocadorBudy.java com o seguinte comando no terminal:
 
 javac AlocadorBudy.java
 
-▶️ Executar
+Execução
 
-O programa espera o caminho do arquivo de entrada (.txt) como argumento.
+O programa espera um arquivo de entrada, que deve ser passado como argumento na linha de comando. O arquivo contém as informações sobre os programas a serem alocados.
 
-Exemplo:
+Exemplo de execução:
 
 java AlocadorBudy contador.txt
 
-📄 Formato do Arquivo de Entrada
+Formato do Arquivo de Entrada
 
-O arquivo .txt deve conter uma linha por programa, no formato:
+O arquivo de entrada deve ser um arquivo de texto (.txt), onde cada linha contém um programa a ser alocado, no formato:
 
 <letra> <tamanho_em_KB>
 
@@ -78,9 +70,9 @@ A 512
 B 1024
 C 256
 
-🖥️ Demonstração — Exemplo de Saída
+Demonstração
 
-A seguir, um exemplo real de saída gerada pelo programa:
+Aqui está um exemplo de como o programa pode se comportar ao ser executado com um arquivo de entrada. Abaixo está um relatório gerado após a execução:
 
 --- Relatório Final do Alocador Budy ---
 Memória Total: 4096 KB
@@ -93,7 +85,7 @@ A      | 512 KB           | 512 KB            | 7             | 0
 B      | 1024 KB           | 1024 KB            | 4             | 1048576
 C      | 256 KB           | 256 KB            | 17             | 524288
 D      | 300 KB           | 512 KB            | 11             | 2097152
-F      | 1 KB           | 1 KB            | 4863             | 786432
+F      | 1 KB             | 1 KB              | 4863          | 786432
 H      | 1000 KB           | 1024 KB            | 6             | 3145728
 I      | 150 KB           | 256 KB            | 25             | 2621440
 L      | 128 KB           | 128 KB            | 38             | 917504
@@ -107,12 +99,11 @@ Espaços Livres Fragmentados:
 608             | 9     | 8 KB            | 794624
 304             | 8     | 16 KB            | 802816
 152             | 7     | 32 KB            | 819200
-76             | 6     | 64 KB            | 851968
-26             | 4     | 256 KB            | 2883584
+76              | 6     | 64 KB            | 851968
+26              | 4     | 256 KB           | 2883584
 Total de Fragmentos Livres: 8
 
-🎥 Link do Vídeo (Simulação)
+Vídeo 
 
-Vídeo no YouTube – Demonstração da Lógica
+https://youtu.be/7aF1R67yNFc
 
-(Link ilustrativo — o vídeo real deve ser gravado pelos integrantes do grupo.)
